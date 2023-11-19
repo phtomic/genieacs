@@ -1,0 +1,15 @@
+{
+    "hg9":[
+      {
+        "ssid":"InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.SSID",
+        "password":"InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.PreSharedKey.*.KeyPassphrase"
+      },
+      {
+        "ssid":"InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.SSID",
+        "password":"InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.PreSharedKey.*.KeyPassphrase"
+      },
+      {
+          "InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.BeaconType":"WPA2"
+      }
+    ]
+  }
