@@ -32,7 +32,7 @@
     },
     {
       "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "11i",
-      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "11i"
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.BeaconType": "11i"
     }
   ]
 }
