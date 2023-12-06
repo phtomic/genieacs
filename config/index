@@ -1,0 +1,53 @@
+- label: "'Serial number'"
+  parameter: DeviceID.SerialNumber
+  type: "'device-link'"
+  components:
+    - type: "'parameter'"
+- element: "'span.inform'"
+  label: "'Status'"
+  type: "'container'"
+  components:
+    - type: "'parameter'"
+    - chart: "'online'"
+      type: "'overview-dot'"
+- label: "'Product class'"
+  parameter: DeviceID.ProductClass
+- label: "'Software version'"
+  parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
+- label: '"MAC Address"'
+  parameter: VirtualParameters.ConnectionMacAddress
+- label: "'SSID'"
+  parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID
+- label: "'Login'"
+  parameter: VirtualParameters.ConnectionPPPUsername
+- label: "'IP'"
+  parameter: VirtualParameters.ConnectionIp
+  type: "'container'"
+  components:
+    - type: "'parameter'"
+  element:
+    tag: "'a'"
+    attributes:
+      href: "'http://' || VirtualParameters.IPwan"
+      target: "'_blank'"
+- label: "'SSID'"
+  parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID
+- element: "'span.inform'"
+  label: "'Last inform'"
+  parameter: DATE_STRING(Events.Inform)
+  type: "'container'"
+  components:
+    - type: "'parameter'"
+    - chart: "'online'"
+      type: "'overview-dot'"
+- label: "'Tags'"
+  parameter: Tags
+  type: "'tags'"
+  unsortable: true
+  writable: false
+- label: '"Usuario TR069"'
+  parameter: InternetGatewayDevice.ManagementServer.ConnectionRequestUsername
+  writable: false
+- label: '"Senha TR069"'
+  parameter: InternetGatewayDevice.ManagementServer.ConnectionRequestPassword
+  writable: false

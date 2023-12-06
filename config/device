@@ -1,0 +1,124 @@
+- type: "'tags'"
+- type: "'ping'"
+- type: "'parameter-list'"
+  parameters:
+    - element: "'span.inform'"
+      label: "'Last inform'"
+      parameter: DATE_STRING(Events.Inform)
+      type: "'container'"
+      components:
+        - type: "'parameter'"
+        - chart: "'online'"
+          type: "'overview-dot'"
+        - type: "'summon-button'"
+          parameters:
+            - InternetGatewayDevice.DeviceInfo.*
+            - InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.*.*.*
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.SSID
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.*
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.Channel
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.KeyPassphrase
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.Standard
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.Enabled
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.Standard
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.*.Standard
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.HostName
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.Enable
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.Active
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.IPAddress
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.MACAddress
+            - InternetGatewayDevice.ManagementServer.*
+            - VirtualParameters.*
+    - label: "'Serial number'"
+      parameter: DeviceID.SerialNumber
+    - label: "'Product class'"
+      parameter: DeviceID.ProductClass
+    - label: "'OUI'"
+      parameter: DeviceID.OUI
+    - label: "'Manufacturer'"
+      parameter: DeviceID.Manufacturer
+    - label: "'Hardware version'"
+      parameter: InternetGatewayDevice.DeviceInfo.HardwareVersion
+    - label: "'Software version'"
+      parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
+    - label: "'Hardware version'"
+      parameter: Device.DeviceInfo.HardwareVersion
+    - label: "'Software version'"
+      parameter: Device.DeviceInfo.SoftwareVersion
+    - label: "'MAC'"
+      parameter: VirtualParameters.ConnectionMacAddress
+    - label: "'IP'"
+      parameter: VirtualParameters.ConnectionIp
+- label: "'WLAN Networks'"
+  parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'SSID'"
+      parameter: SSID
+    - label: "'Password'"
+      parameter: KeyPassphrase
+    - label: "'Channels'"
+      parameter: PossibleChannels
+    - label: "'Canal Atual'"
+      parameter: Channel
+- label: "'WLAN Networks'"
+  parameter: Device.WiFi.SSID
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'SSID'"
+      parameter: SSID
+    - label: "'Password'"
+      parameter: KeyPassphrase
+    - label: "'Channels'"
+      parameter: PossibleChannels
+    - label: "'Canal Atual'"
+      parameter: Channel
+- label: "'Port Forward'"
+  parameter: InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANIPConnection.1.PortMapping
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'Host'"
+      parameter: InternalClient
+    - label: "'Porta Externa'"
+      parameter: ExternalPort
+    - label: "'Porta Interna'"
+      parameter: InternalPort
+    - label: "'Protocolos'"
+      parameter: PortMappingProtocol
+    - label: "'Descricao'"
+      parameter: PortMappingDescription
+    - label: "'Active'"
+      parameter: PortMappingEnabled
+- label: "'LAN Hosts'"
+  parameter: InternetGatewayDevice.LANDevice.1.Hosts.Host
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'Host name'"
+      parameter: HostName
+    - label: "'IP address'"
+      parameter: IPAddress
+    - label: "'MAC address'"
+      parameter: MACAddress
+    - label: "'Origin'"
+      parameter: InterfaceType
+    - label: "'Source'"
+      parameter: AddressSource
+    - label: "'Active'"
+      parameter: Active
+- element: "'div'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'Faults'"
+    - type: "'device-faults'"
+- element: "'div.container-full-width'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'All parameters'"
+    - type: "'all-parameters'"
+- type: "'device-actions'"

@@ -1,0 +1,29 @@
+- label: "'Serial number'"
+  parameter: DeviceID.SerialNumber
+  type: "'string'"
+- label: "'Product class'"
+  parameter: DeviceID.ProductClass
+  type: "'string'"
+- label: "'Product Vendor'"
+  parameter: DeviceID.Manufacturer
+  type: "'string'"
+- label: "'Hardware Version'"
+  parameter: InternetGatewayDevice.DeviceInfo.HardwareVersion
+  type: "'string'"
+- label: "'Software Version'"
+  parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
+  type: "'string'"
+- label: "'Tag'"
+  type: "'tag'"
+- label: "'MAC Address'"
+  parameter: VirtualParameters.ConnectionMacAddress
+  type: "'string'"
+- label: "'IP'"
+  parameter: VirtualParameters.ConnectionIp
+  type: "'string'"
+- label: "'Transport Type'"
+  parameter: VirtualParameters.ConnectionTransportType
+- label: "'PPP User'"
+  parameter: VirtualParameters.ConnectionPPPUsername
+- label: "'WIFI SSID'"
+  parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID

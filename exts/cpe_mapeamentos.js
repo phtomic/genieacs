@@ -3,7 +3,7 @@ let https = require( "https" );
 let fs = require("fs")
 const URI = "https://raw.githubusercontent.com/phtomic/genieacs/main/mapeamentos.json"
 const mapeamentosDir = "./mapeamentos.tmp"
-exports.getMapeamentos = (args,callback) => {
+exports.getMapeamentos = function getMapeamentos(args,callback){
     let mapeamento = fs.existsSync(mapeamentosDir)? JSON.parse(fs.readFileSync(mapeamentosDir,'utf-8')) : {
         timestamp: 0,
         dados: {}

@@ -4,15 +4,15 @@ if (IGNORE.value !== undefined) {
     return;
 }
 
-const username_inform = declare("DeviceID.ID", {value: 1}).value[0]
+const username_inform = decodeURI(declare("DeviceID.ID", {value: 1}).value[0]).replace(/ /,"_")
 const password = Math.trunc(Math.random() * Number.MAX_SAFE_INTEGER).toString(36);
 const informInterval = 300;
 const daily = Date.now(86400000);
-declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: decodeURI(username_inform)});
+declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: username_inform});
 declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", {value: daily}, {value: password});
 declare("InternetGatewayDevice.ManagementServer.PeriodicInformEnable", {value: daily}, {value: true});
 declare("InternetGatewayDevice.ManagementServer.PeriodicInformInterval", {value: daily}, {value: informInterval});
-declare("Device.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: decodeURI(username_inform)});
+declare("Device.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: username_inform});
 declare("Device.ManagementServer.ConnectionRequestPassword", {value: daily}, {value: password});
 declare("Device.ManagementServer.PeriodicInformEnable", {value: daily}, {value: true});
 declare("Device.ManagementServer.PeriodicInformInterval", {value: daily}, {value: informInterval});
@@ -33,18 +33,18 @@ const mac = declare("VirtualParameters.ConnectionMacAddress", { value: 1 }).valu
 
 let auth = ext("cpe_autoconfig", 'pppoeLoginByMac', mac);
 
-let params_by = ext("cpe_mapeamentos", 'getMapeamento');
+let params_by = ext("cpe_mapeamentos", 'getMapeamentos');
 
 if (!auth || !auth.username || !auth.password) {
 
 }
 function getWifiParam(index){
     if(index == 2){
-        return params_by[product_class.toLowerCase()]?.[index]
+        return params_by?.[product_class.toLowerCase()]?.[index]
     }
 	return {
-      ssid: params_by[product_class.toLowerCase()]?.[index]?.ssid || `InternetGatewayDevice.LANDevice.*.WLANConfiguration.${index?5:1}.SSID`,
-      password: params_by[product_class.toLowerCase()]?.[index]?.password || `InternetGatewayDevice.LANDevice.*.WLANConfiguration.${index?5:1}.PreSharedKey.*.KeyPassphrase`
+      ssid: params_by?.[product_class.toLowerCase()]?.[index]?.ssid || `InternetGatewayDevice.LANDevice.*.WLANConfiguration.${index?5:1}.SSID`,
+      password: params_by?.[product_class.toLowerCase()]?.[index]?.password || `InternetGatewayDevice.LANDevice.*.WLANConfiguration.${index?5:1}.PreSharedKey.*.KeyPassphrase`
     }
 }
 declare("InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.*", { path: now }); //refresh
@@ -67,7 +67,7 @@ if (
     username.value &&
     username.value.length > 1 &&
     auth.username == username.value[0]
-  ) && auth.servico_tipo_conexao.toLowerCase() == "pppoe"
+  ) && auth.servico_tipo_conexao?.toLowerCase() == "pppoe"
 ) {
     // configura o PPPOE com o usuario encontrado
     createPPPOEConnection( auth );

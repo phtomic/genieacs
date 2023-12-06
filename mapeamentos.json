@@ -9,14 +9,30 @@
       "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.PreSharedKey.*.KeyPassphrase"
     },
     {
-        "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPA2",
-        "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.BeaconType": "WPA2"
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPA2",
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.BeaconType": "WPA2"
     }
   ],
-  "zxhn h199a":[
-    {},{},{
-        "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "11i",
-        "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "11i"
+  "zxhn h199a": [
+    {},
+    {},
+    {
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "11i",
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "11i"
+    }
+  ],
+  "1200r": [
+    {
+      "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.SSID",
+      "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.PreSharedKey.*.KeyPassphrase"
+    },
+    {
+      "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.SSID",
+      "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.PreSharedKey.*.KeyPassphrase"
+    },
+    {
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "11i",
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "11i"
     }
   ]
 }

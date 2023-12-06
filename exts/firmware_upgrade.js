@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 //FILENAME: firmwares
 let https = require( "http" );
-const URI = "http://localhost:3002/files?query={%22metadata.fileType%22%3A%221%20Firmware%20Upgrade%20Image%22}"
+const URI = "http://localhost:7557/files?query={%22metadata.fileType%22%3A%221%20Firmware%20Upgrade%20Image%22}"
 exports.getFirmware = (args,callback) => {
-    let [product_class,last_file] = args
+    let [product_class,OUI,last_file] = args
     const request = https.request(URI, (response) => {
         let data = '';
         response.on('data', (chunk) => {
@@ -15,7 +15,7 @@ exports.getFirmware = (args,callback) => {
             if(body && body.length>0){
                 let files = []
                 body.forEach(file => {
-                    if(file.metadata.productClass===product_class){
+                    if(file.metadata.productClass===product_class && (file.metadata.oui===OUI || file.metadata.oui==="")){
                         files.push({
                             i: new Date(file.uploadDate).getTime(),
                             filename: file.filename,
@@ -29,7 +29,7 @@ exports.getFirmware = (args,callback) => {
                     return 0;
                 })
                 let retorno = files[files.length -1]
-                if(retorno.filename == last_file){
+                if(retorno==undefined || retorno?.filename == last_file){
                     callback(null,{filename:false})
                 }else{
                     callback(null,retorno)

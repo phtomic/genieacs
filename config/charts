@@ -1,0 +1,63 @@
+online:
+  label: "'Online'"
+  slices:
+    1_onlineNow:
+      color: "'#31a354'"
+      filter: Events.Inform > NOW() - 6 * 60 * 1000
+      label: "'Online'"
+    2_past24:
+      color: '"#fff314"'
+      filter: Events.Inform > (NOW() - 5 * 60 * 1000) - (24 * 60 * 60 * 1000) AND
+        Events.Inform < (NOW() - 6 * 60 * 1000)
+      label: '"Atualizacao pendente"'
+    3_others:
+      color: '"#cf1515"'
+      filter: Events.Inform < (NOW() - 6 * 60 * 1000) - (24 * 60 * 60 * 1000)
+      label: '"Offline / Inativo"'
+connectionType:
+  label: "'Tipo de conexão'"
+  slices:
+    1_pppoe:
+      color: "'#31a354'"
+      filter: (VirtualParameters.ConnectionTransportType = "PPPoE")
+      label: "'PPPOE'"
+    2_dhcp:
+      color: '"#2C28C8"'
+      filter: (VirtualParameters.ConnectionTransportType = "DHCP")
+      label: '"DHCP"'
+    3_ppp3g:
+      color: '"#b649d1"'
+      filter: (VirtualParameters.ConnectionTransportType = "PPP3G")
+      label: '"PPP3G"'
+    99999_outro:
+      color: '"#fff314"'
+      filter: (VirtualParameters.ConnectionTransportType <> "PPPoE") AND
+        (VirtualParameters.ConnectionTransportType <> "DHCP") AND
+        (VirtualParameters.ConnectionTransportType <> "PPP3G")
+      label: "'Outros'"
+ponRX:
+  label: "'Status PON'"
+  slices:
+    1_limiar:
+      color: "'#31a354'"
+      filter: (VirtualParameters.PonRxPower > -23)
+      label: "'Até -23'"
+    2_limite:
+      color: '"#2C28C8"'
+      filter: (VirtualParameters.PonRxPower < -23) AND (VirtualParameters.PonRxPower
+        >= -30)
+      label: '"No limite até -30"'
+    3_urgente:
+      color: '"#fff314"'
+      filter: (VirtualParameters.PonRxPower < -30) AND (VirtualParameters.PonRxPower
+        >= -35)
+      label: '"URGENCIA -35"'
+    4_critico:
+      color: '"#cf1515"'
+      filter: (VirtualParameters.PonRxPower < -35) AND (VirtualParameters.PonRxPower >
+        -200)
+      label: "'CRÍTICO'"
+    99999_semPON:
+      color: '"#b649d1"'
+      filter: (VirtualParameters.PonRxPower = -200)
+      label: "'SEM PON'"

@@ -1,0 +1,9 @@
+2_pon:
+  label: "'PON Status'"
+  charts:
+    - "'ponRX'"
+1_devices:
+  label: "'Dispositivos'"
+  charts:
+    - "'online'"
+    - "'connectionType'"
