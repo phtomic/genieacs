@@ -4,7 +4,7 @@ if (IGNORE.value !== undefined) {
     return;
 }
 
-const username_inform = decodeURI(declare("DeviceID.ID", {value: 1}).value[0]).replace(/ /,"_")
+const username_inform = decodeURI(declare("DeviceID.ID", {value: 1}).value[0]).replace(/ /g,"_")
 const password = Math.trunc(Math.random() * Number.MAX_SAFE_INTEGER).toString(36);
 const informInterval = 300;
 const daily = Date.now(86400000);
