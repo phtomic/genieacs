@@ -3,4 +3,4 @@ if (IGNORE.value !== undefined) {
     return;
 }
 
-declare("VirtualParameters.*", {value: Date.now()});tel
+declare("VirtualParameters.*", {value: Date.now()});
