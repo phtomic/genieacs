@@ -31,8 +31,8 @@
       "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.PreSharedKey.*.KeyPassphrase"
     },
     {
-      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "11i",
-      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.BeaconType": "11i"
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPAand11i",
+      "InternetGatewayDevice.LANDevice.*.WLANConfiguration.6.BeaconType": "WPAand11i"
     }
   ]
 }
