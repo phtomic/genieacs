@@ -1,6 +1,7 @@
 # GenieACS v1.2 Dockerfile #
 ############################
 FROM node:18-slim
+RUN apt update && apt install iputils-ping -y
 RUN npm install -g --unsafe-perm genieacs@1.2.9
 RUN npm install pm2 -g
 RUN useradd --system --no-create-home --user-group genieacs

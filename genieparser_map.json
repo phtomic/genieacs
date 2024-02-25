@@ -1,0 +1,38 @@
+{
+    "timeout":0,
+    "mapeamentos": {
+        "tplink": {
+            "device2": [
+                {
+                    "from": ["SSID"],
+                    "to": ["SSID"],
+                    "arrayFrom": "Device.WiFi.SSID",
+                    "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
+                },
+                {
+                    "from": ["Channel", "AutoChannelEnable", "Enable", "PossibleChannels"],
+                    "to": ["Channel", "AutoChannelEnable", "Enable", "PossibleChannels"],
+                    "arrayFrom": "Device.WiFi.Radio",
+                    "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
+                },
+                {
+                    "from": ["Security.KeyPassphrase"],
+                    "to": ["KeyPassphrase"],
+                    "arrayFrom": "Device.WiFi.AccessPoint",
+                    "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
+                }
+            ]
+        },
+        "default": {
+    
+        }
+    },
+    "mapeamentos_indices":{
+        "manufacturer": {
+            "tp-link": "tplink"
+        },
+        "productClass": {
+    
+        }
+    }
+}

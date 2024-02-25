@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-let https = require( "http" );
+let https = require( "https" );
 
 const options = (dados)=>{
     return {
-        hostname: '',
-        port:8000,
+        hostname: 'seligatelecom.sgp.net.br',
+        port:443,
         path: '/api/ura/consultacliente',
         method: 'POST',
         headers: {
@@ -16,9 +16,9 @@ const options = (dados)=>{
 
 exports.pppoeLoginByMac = function pppoeLoginByMac( args, callback ) {    
     const dados = {
-        mac_dhcp: args[0],
-        "app": "",
-        "token": ""
+        mac_dhcp: args[0].trim(),
+        "app": "ura",
+        "token": "c3621230-1a8a-4ed7-acf7-beda32396fdc"
     }
     const opts = options(dados)
     if(opts.hostname && dados.token){
@@ -30,6 +30,7 @@ exports.pppoeLoginByMac = function pppoeLoginByMac( args, callback ) {
             response.on('end', function(){
                 const parsedData = JSON.parse(data);
                 let auth = {};
+                console.log(opts,dados,parsedData)
                 if( parsedData.contratos && parsedData.contratos.length > 0 ) {
                    let contrato = parsedData.contratos[0];
                    auth = {
@@ -46,7 +47,7 @@ exports.pppoeLoginByMac = function pppoeLoginByMac( args, callback ) {
                 callback( null, auth );
             });
         }); 
-    
+
         req.write(JSON.stringify(dados))
         req.end()
     }else{

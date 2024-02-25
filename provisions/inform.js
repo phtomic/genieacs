@@ -54,21 +54,24 @@ declare("InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.*", { path: now }
 const username = declare("VirtualParameters.ConnectionPPPUsername", { value: 1 });
 const wireless = declare(getWifiParam(0).ssid, { value: 1 });
 const wireless5 = declare(getWifiParam(1).ssid, { value: 1 });
-if (
-	!(wireless && wireless.value && wireless.value.length > 1 && auth.wifi_ssid == wireless.value[0]) ||
-  	!(wireless5 && wireless5.value && wireless5.value.length > 1 && auth.wifi_ssid_5 == wireless5.value[0])
-) {
-    // configura o Wifi com os dados encontrados
-    createWifiConfiguration( auth );
-}
+
 if (
   !(
     username &&
     username.value &&
     username.value.length > 1 &&
     auth.username == username.value[0]
-  ) && auth.servico_tipo_conexao?.toLowerCase() == "pppoe"
+  ) 
+  && auth.username
+  && auth.servico_tipo_conexao?.toLowerCase() === "pppoe"
 ) {
+    if (
+        !(wireless && wireless.value && wireless.value.length > 1 && auth.wifi_ssid == wireless.value[0]) ||
+          !(wireless5 && wireless5.value && wireless5.value.length > 1 && auth.wifi_ssid_5 == wireless5.value[0])
+    ) {
+        // configura o Wifi com os dados encontrados
+        createWifiConfiguration( auth );
+    }
     // configura o PPPOE com o usuario encontrado
     createPPPOEConnection( auth );
 }

@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 //FILENAME: firmwares
-let https = require( "http" );
+let https = require("http");
 const URI = "http://localhost:7557/files?query={%22metadata.fileType%22%3A%221%20Firmware%20Upgrade%20Image%22}"
-exports.getFirmware = (args,callback) => {
-    let [product_class,OUI,last_file] = args
+exports.getFirmware = (args, callback) => {
+    let [product_class, OUI, last_file] = args
     const request = https.request(URI, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data = data + chunk.toString();
         });
-    
+
         response.on('end', () => {
             const body = JSON.parse(data);
-            if(body && body.length>0){
+            if (body && body.length > 0) {
                 let files = []
+                let retorno = undefined;
                 body.forEach(file => {
-                    if(file.metadata.productClass===product_class && (file.metadata.oui===OUI || file.metadata.oui==="")){
+                    if (file.metadata.productClass === product_class && (file.metadata.oui === OUI || file.metadata.oui === "")) {
                         files.push({
                             i: new Date(file.uploadDate).getTime(),
                             filename: file.filename,
@@ -23,23 +24,34 @@ exports.getFirmware = (args,callback) => {
                         })
                     }
                 })
-                files = files.sort((a,b)=>{
-                    if (a.i < b.i) return -1;
-                    if (a.i > b.i) return 1;
+                files = files.sort((a, b) => {
+                    if (a.filename < b.filename) return -1;
+                    if (a.filename > b.filename) return 1;
                     return 0;
                 })
-                let retorno = files[files.length -1]
-                if(retorno==undefined || retorno?.filename == last_file){
-                    callback(null,{filename:false})
+                if(last_file){
+                    files.forEach((file,index) => {
+                        if (file.filename === last_file) {
+                            retorno = files[index+1]
+                        }
+                    })
+                    if(retorno==undefined){
+                        retorno = files[0]
+                    }
                 }else{
-                    callback(null,retorno)
+                    retorno = files[0]
                 }
-            }else callback(null, {filename:false})
+                if (retorno == undefined) {
+                    callback(null, { filename: false })
+                } else {
+                    callback(null, retorno)
+                }
+            } else callback(null, { filename: false })
         });
     })
     request.on('error', (error) => {
         console.log('An error', error);
-        callback(null, mapeamento.dados)
+        callback(null, { filename: false })
     });
     request.end()
 }
