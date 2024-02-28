@@ -15,9 +15,9 @@ App.use((req, res, next) => {
     console.log(`${endpoint}${req.originalUrl}`)
     let consulta = TratarRequisicao(req.body, req.originalUrl, req.method.toLowerCase())
     axios[req.method.toLowerCase()](`${endpoint}${req.originalUrl}`, consulta.body).then(({ status, data }) => {
-        if(status === 200){
+        if (status === 200) {
             res.status(200).send(consulta.after(data));
-        }else{
+        } else {
             res.sendStatus(status || 500)
         }
     }).catch((err) => {
@@ -109,15 +109,15 @@ function setObjectValue(object, path, value) {
     return object
 }
 function getRouterMap(cpe) {
-    if(!fs.existsSync(files.mapeamento)){
+    if (!fs.existsSync(files.mapeamento)) {
         getMapFile()
         return {};
     }
-    let {mapeamentos,mapeamentos_indices,timeout} = JSON.parse(fs.readFileSync(files.mapeamento, 'utf8'))
+    let { mapeamentos, mapeamentos_indices, timeout } = JSON.parse(fs.readFileSync(files.mapeamento, 'utf8'))
     let identifier = mapeamentos.default
-    if(timeout<Date.now()) getMapFile()
+    if (timeout < Date.now()) getMapFile()
     let line = []
-    if(fs.existsSync(files.cachedIds)) line = fs.readFileSync(files.cachedIds, 'utf8').split('\n').filter(l => l.length > 0).filter(line => line.trim().split('|')[0] == cpe._id)
+    if (fs.existsSync(files.cachedIds)) line = fs.readFileSync(files.cachedIds, 'utf8').split('\n').filter(l => l.length > 0).filter(line => line.trim().split('|')[0] == cpe._id)
     if (line.length == 0) {
         let info = cpe._deviceId
         let manufacturer = mapeamentos_indices.manufacturer[to_readable(info._Manufacturer)] || to_readable(info._Manufacturer)
@@ -132,10 +132,10 @@ function getRouterMap(cpe) {
     return identifier
 }
 function to_readable(str) { return str.toLowerCase().replace(/ /g, '_') }
-async function getMapFile(){
-    axios.get(files.mapeamento_url).then(({data}) => {
-        data.timeout = Date.now() +  1000 * 60 * 60 * 24
-        fs.writeFileSync(files.mapeamento,JSON.stringify(data));
-    }).catch((err) => {});
+async function getMapFile() {
+    axios.get(files.mapeamento_url).then(({ data }) => {
+        data.timeout = Date.now() + 1000 * 60 * 60 * 24
+        fs.writeFileSync(files.mapeamento, JSON.stringify(data));
+    }).catch((err) => { });
 }
 App.listen(GENIEPARSER_NBI_PORT)
