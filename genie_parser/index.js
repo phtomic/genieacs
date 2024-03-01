@@ -3,13 +3,15 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const fs = require('fs');
 const App = express();
+const path = require('path').join
 const GENIEPARSER_NBI_PORT = process.env.GENIEPARSER_NBI_PORT || 7577
 const endpoint = process.env.GENIEACS_NBI_HOST || `http://localhost:7557`
 const files = {
-    cachedIds: '/tmp/genieparser_cachedIds.tmp',
-    mapeamento: '/tmp/genieparser_map.json',
+    cachedIds: path(__dirname,'tmp/genieparser_cachedIds.tmp'),
+    mapeamento: path(__dirname,'tmp/genieparser_map.json'),
     mapeamento_url: 'https://raw.githubusercontent.com/phtomic/genieacs/main/genieparser_map.json'
 }
+console.log(files)
 App.use(bodyParser());
 App.use((req, res, next) => {
     console.log(`${endpoint}${req.originalUrl}`)
@@ -21,6 +23,7 @@ App.use((req, res, next) => {
             res.sendStatus(status || 500)
         }
     }).catch((err) => {
+        console.error(err.data);
         res.sendStatus(err.response?.status || 500)
     })
 })
@@ -64,12 +67,11 @@ function TratarRespostaSave(_id, data) {
                     })
                     
                 })
-                if(ignore) return false
+                if(!ignore) return false
             }
             return param
         }).filter((p)=>p!==false)
     });
-    console.log(data)
 }
 function TratarRespostaConsulta(data) {
     data.map(cpe => {
@@ -123,10 +125,10 @@ function setObjectValue(object, path, value) {
 function getRouterMap(cpe) {
     if (!fs.existsSync(files.mapeamento)) {
         getMapFile()
-        return {};
+        return [];
     }
     let { mapeamentos, mapeamentos_indices, timeout } = JSON.parse(fs.readFileSync(files.mapeamento, 'utf8'))
-    let identifier = mapeamentos.default
+    let identifier = []
     if (timeout < Date.now()) getMapFile()
     let line = []
     if (fs.existsSync(files.cachedIds)) line = fs.readFileSync(files.cachedIds, 'utf8').split('\n').filter(l => l.length > 0).filter(line => line.trim().split('|')[0] == cpe._id)
@@ -140,7 +142,7 @@ function getRouterMap(cpe) {
         let [, manufacturer, productClass] = line[0].split('|')
         identifier = mapeamentos[manufacturer]?.[productClass]
     }
-    if (identifier == undefined) identifier = mapeamentos.default
+    if (identifier == undefined) identifier = []
     return identifier
 }
 function to_readable(str) { return str.toLowerCase().replace(/ /g, '_') }
@@ -148,6 +150,7 @@ async function getMapFile() {
     axios.get(files.mapeamento_url).then(({ data }) => {
         data.timeout = Date.now() + 1000 * 60 * 60 * 24
         fs.writeFileSync(files.mapeamento, JSON.stringify(data));
-    }).catch((err) => { });
+    }).catch((err) => { console.log(err)});
 }
 App.listen(GENIEPARSER_NBI_PORT)
+console.log(`Listening on ${GENIEPARSER_NBI_PORT}`)
