@@ -43,8 +43,9 @@ function buscaMapeamentoCallback(url, callback) {
 function TratarRespostaSave(_id, data) {
     let map = getRouterMap({ _id })
     map.forEach(remap => {
-        if (remap.arrayTo) {
-            data.parameterValues = data.parameterValues.map(param => {
+        if(data.parameterValues)
+        data.parameterValues = data.parameterValues?.map(param => {
+            if (remap.arrayTo) {
                 let dt = param[0].replace(`${remap.arrayTo}.`, '').split('.')
                 let index = dt.shift();
                 let path = dt.join('.')
@@ -53,9 +54,20 @@ function TratarRespostaSave(_id, data) {
                         param[0] = `${remap.arrayFrom}.${index}.${remap.from[key]}`
                     }
                 })
-                return param
-            })
-        }
+            }
+            if(remap.ignore_on_save){
+                let ignore = true;
+                remap.ignore_on_save.forEach(ignored=>{
+                    let tmpParam = param[0].split('.')
+                    ignored.split('.').forEach((pointer,i)=>{
+                        if(tmpParam[i]!==pointer && pointer !== '*') ignore=false;
+                    })
+                    
+                })
+                if(ignore) return false
+            }
+            return param
+        }).filter((p)=>p!==false)
     });
     console.log(data)
 }
@@ -128,7 +140,7 @@ function getRouterMap(cpe) {
         let [, manufacturer, productClass] = line[0].split('|')
         identifier = mapeamentos[manufacturer]?.[productClass]
     }
-    if(identifier==undefined) identifier = mapeamentos.default
+    if (identifier == undefined) identifier = mapeamentos.default
     return identifier
 }
 function to_readable(str) { return str.toLowerCase().replace(/ /g, '_') }

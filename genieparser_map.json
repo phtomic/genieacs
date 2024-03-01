@@ -21,6 +21,14 @@
                     "arrayFrom": "Device.WiFi.AccessPoint",
                     "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
                 }
+            ],
+            "xc220-g3":[
+                {
+                    "ignore_on_save":[
+                        "InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.ConnectionType",
+                        "InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.PPPAuthenticationProtocol"
+                    ]
+                }
             ]
         },
         "default": []

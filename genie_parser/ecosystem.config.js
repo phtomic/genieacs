@@ -6,8 +6,8 @@ module.exports = {
             watch: true,
             env: {
                 "NODE_ENV": "production",
-                "GENIEACS_NBI_HOST": "http://localhost:7557",
-                "GENIEPARSER_NBI_PORT": 7577
+                "GENIEACS_NBI_HOST": "http://localhost:7556",
+                "GENIEPARSER_NBI_PORT": 7557
             }
         }
     ]
