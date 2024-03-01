@@ -23,9 +23,7 @@
                 }
             ]
         },
-        "default": {
-    
-        }
+        "default": []
     },
     "mapeamentos_indices":{
         "manufacturer": {

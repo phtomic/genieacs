@@ -128,7 +128,7 @@ function getRouterMap(cpe) {
         let [, manufacturer, productClass] = line[0].split('|')
         identifier = mapeamentos[manufacturer]?.[productClass]
     }
-
+    if(identifier==undefined) identifier = mapeamentos.default
     return identifier
 }
 function to_readable(str) { return str.toLowerCase().replace(/ /g, '_') }
