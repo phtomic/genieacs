@@ -24,7 +24,8 @@ App.use((req, res, next) => {
         }
     }).catch((err) => {
         console.error(err.data);
-        res.sendStatus(err.response?.status || 500)
+        console.log(err)
+        res.sendStatus(err.status || err.response?.status || 500)
     })
 })
 
@@ -38,6 +39,7 @@ function TratarRequisicao(body, originalUrl, reqType) {
 function BuscaMetodo(body, originalUrl, reqType) {
     if (originalUrl.includes('/devices') && reqType == 'get') return { after: TratarRespostaConsulta }
     if (originalUrl.includes('/devices') && reqType == 'post' && body.name == 'setParameterValues') return { before: buscaMapeamentoCallback(originalUrl, TratarRespostaSave) }
+    return {}
 }
 function buscaMapeamentoCallback(url, callback) {
     let [uri] = url.match(/(?<=\/devices\/\s*).*?(?=\s*\/tasks)/g)
