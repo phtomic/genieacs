@@ -49,6 +49,7 @@ function buscaMapeamentoCallback(url, callback) {
 function TratarRespostaSave(_id, data) {
     let map = getRouterMap({ _id })
     map.forEach(remap => {
+        console.log(data)
         if(data.parameterValues)
         data.parameterValues = data.parameterValues?.map(param => {
             if (remap.arrayTo) {
@@ -74,6 +75,7 @@ function TratarRespostaSave(_id, data) {
             }
             return param
         }).filter((p)=>p!==false)
+        console.log(data)
     });
 }
 function TratarRespostaConsulta(data) {
