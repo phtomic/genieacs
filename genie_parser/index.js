@@ -74,8 +74,8 @@ function TratarRespostaSave(_id, data) {
             }
             return param
         }).filter((p)=>p!==false)
-        console.log(data)
     });
+    return data
 }
 function TratarRespostaConsulta(data) {
     data.map(cpe => {
