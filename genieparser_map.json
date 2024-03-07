@@ -1,44 +1,51 @@
 {
-    "timeout":0,
-    "mapeamentos": {
-        "tplink": {
-            "device2": [
-                {
-                    "from": ["SSID"],
-                    "to": ["SSID"],
-                    "arrayFrom": "Device.WiFi.SSID",
-                    "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
-                },
-                {
-                    "from": ["Channel", "AutoChannelEnable", "Enable", "PossibleChannels"],
-                    "to": ["Channel", "AutoChannelEnable", "Enable", "PossibleChannels"],
-                    "arrayFrom": "Device.WiFi.Radio",
-                    "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
-                },
-                {
-                    "from": ["Security.KeyPassphrase"],
-                    "to": ["KeyPassphrase"],
-                    "arrayFrom": "Device.WiFi.AccessPoint",
-                    "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
-                }
-            ],
-            "xc220-g3":[
-                {
-                    "ignore_on_save":[
-                        "InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.ConnectionType",
-                        "InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.PPPAuthenticationProtocol"
-                    ]
-                }
-            ]
+  "timeout": 0,
+  "mapeamentos": {
+    "tplink": {
+      "device2": [
+        {
+          "from": ["SSID"],
+          "to": ["SSID"],
+          "arrayFrom": "Device.WiFi.SSID",
+          "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
         },
-        "default": []
-    },
-    "mapeamentos_indices":{
-        "manufacturer": {
-            "tp-link": "tplink"
+        {
+          "from": [
+            "Channel",
+            "AutoChannelEnable",
+            "Enable",
+            "PossibleChannels"
+          ],
+          "to": ["Channel", "AutoChannelEnable", "Enable", "PossibleChannels"],
+          "arrayFrom": "Device.WiFi.Radio",
+          "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
         },
-        "productClass": {
-    
+        {
+          "from": ["Security.KeyPassphrase"],
+          "to": ["KeyPassphrase"],
+          "arrayFrom": "Device.WiFi.AccessPoint",
+          "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration"
         }
-    }
+      ],
+      "xc220-g3": [
+        {
+          "from": ["KeyPassphrase"],
+          "to": ["PreSharedKey.1.PreSharedKey"],
+          "arrayFrom": "InternetGatewayDevice.LANDevice.1.WLANConfiguration",
+          "arrayTo": "InternetGatewayDevice.LANDevice.1.WLANConfiguration",
+          "ignore_on_save": [
+            "InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.ConnectionType",
+            "InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANPPPConnection.*.PPPAuthenticationProtocol"
+          ]
+        }
+      ]
+    },
+    "default": []
+  },
+  "mapeamentos_indices": {
+    "manufacturer": {
+      "tp-link": "tplink"
+    },
+    "productClass": {}
+  }
 }
