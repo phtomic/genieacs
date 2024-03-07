@@ -43,6 +43,7 @@ function BuscaMetodo(body, originalUrl, reqType) {
 }
 function buscaMapeamentoCallback(url, callback) {
     let [uri] = url.match(/(?<=\/devices\/\s*).*?(?=\s*\/tasks)/g)
+    console.log('Device:',decodeURI(uri))
     return (body) => callback(decodeURI(uri), body)
 }
 function TratarRespostaSave(_id, data) {
