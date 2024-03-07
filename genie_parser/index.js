@@ -67,11 +67,10 @@ function TratarRespostaSave(_id, data) {
                 remap.ignore_on_save.forEach(ignored=>{
                     let tmpParam = param[0].split('.')
                     ignored.split('.').forEach((pointer,i)=>{
-                        if(tmpParam[i]!==pointer && pointer !== '*') ignore=false;
+                        if(tmpParam[i]!==pointer && pointer !== '*') ignore = false;
                     })
-                    
                 })
-                if(!ignore) return false
+                if(ignore) return false
             }
             return param
         }).filter((p)=>p!==false)
