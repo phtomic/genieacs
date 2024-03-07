@@ -43,7 +43,7 @@ function BuscaMetodo(body, originalUrl, reqType) {
 }
 function buscaMapeamentoCallback(url, callback) {
     let [uri] = url.match(/(?<=\/devices\/\s*).*?(?=\s*\/tasks)/g)
-    return (body) => callback(uri, body)
+    return (body) => callback(decodeURI(uri), body)
 }
 function TratarRespostaSave(_id, data) {
     let map = getRouterMap({ _id })
