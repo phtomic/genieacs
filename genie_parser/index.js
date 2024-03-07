@@ -7,8 +7,8 @@ const path = require('path').join
 const GENIEPARSER_NBI_PORT = process.env.GENIEPARSER_NBI_PORT || 7577
 const endpoint = process.env.GENIEACS_NBI_HOST || `http://localhost:7557`
 const files = {
-    cachedIds: path(__dirname,'tmp/genieparser_cachedIds.tmp'),
-    mapeamento: path(__dirname,'tmp/genieparser_map.json'),
+    cachedIds: path(__dirname, 'tmp/genieparser_cachedIds.tmp'),
+    mapeamento: path(__dirname, 'tmp/genieparser_map.json'),
     mapeamento_url: 'https://raw.githubusercontent.com/phtomic/genieacs/main/genieparser_map.json'
 }
 console.log(files)
@@ -24,7 +24,6 @@ App.use((req, res, next) => {
         }
     }).catch((err) => {
         console.error(err.data);
-        console.log(err)
         res.sendStatus(err.status || err.response?.status || 500)
     })
 })
@@ -43,37 +42,35 @@ function BuscaMetodo(body, originalUrl, reqType) {
 }
 function buscaMapeamentoCallback(url, callback) {
     let [uri] = url.match(/(?<=\/devices\/\s*).*?(?=\s*\/tasks)/g)
-    console.log('Device:',decodeURI(uri))
+    console.log('Device:', decodeURI(uri))
     return (body) => callback(decodeURI(uri), body)
 }
 function TratarRespostaSave(_id, data) {
     let map = getRouterMap({ _id })
     map.forEach(remap => {
-        console.log(data)
-        if(data.parameterValues)
-        data.parameterValues = data.parameterValues?.map(param => {
-            if (remap.arrayTo) {
-                let dt = param[0].replace(`${remap.arrayTo}.`, '').split('.')
-                let index = dt.shift();
-                let path = dt.join('.')
-                remap.to.forEach((to, key) => {
-                    if (path == to) {
-                        param[0] = `${remap.arrayFrom}.${index}.${remap.from[key]}`
-                    }
-                })
-            }
-            if(remap.ignore_on_save){
-                let ignore = true;
-                remap.ignore_on_save.forEach(ignored=>{
-                    let tmpParam = param[0].split('.')
-                    ignored.split('.').forEach((pointer,i)=>{
-                        if(tmpParam[i]!==pointer && pointer !== '*') ignore = false;
+        if (data.parameterValues)
+            data.parameterValues = data.parameterValues?.map(param => {
+                if (remap.arrayTo) {
+                    let dt = param[0].replace(`${remap.arrayTo}.`, '').split('.')
+                    let index = dt.shift();
+                    let path = dt.join('.')
+                    remap.to.forEach((to, key) => {
+                        if (path == to) {
+                            param[0] = `${remap.arrayFrom}.${index}.${remap.from[key]}`
+                        }
                     })
-                })
-                if(ignore) return false
-            }
-            return param
-        }).filter((p)=>p!==false)
+                }
+                if (remap.ignore_on_save) {
+                    if (remap.ignore_on_save.map(ignored => {
+                        let tmpParam = param[0].split('.')
+                        return ignored.split('.').map((pointer, i) => {
+                            return (tmpParam[i] !== pointer && pointer !== '*' && tmpParam[i] !== undefined)
+                        }).includes(true)
+                    }).includes(false))
+                        return false
+                }
+                return param
+            }).filter((p) => p !== false)
     });
     return data
 }
@@ -154,7 +151,7 @@ async function getMapFile() {
     axios.get(files.mapeamento_url).then(({ data }) => {
         data.timeout = Date.now() + 1000 * 60 * 60 * 24
         fs.writeFileSync(files.mapeamento, JSON.stringify(data));
-    }).catch((err) => { console.log(err)});
+    }).catch((err) => { console.log(err) });
 }
 App.listen(GENIEPARSER_NBI_PORT)
 console.log(`Listening on ${GENIEPARSER_NBI_PORT}`)
