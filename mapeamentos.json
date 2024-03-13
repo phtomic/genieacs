@@ -37,16 +37,16 @@
     ],
     "zt199": [
         {
-            "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.SSID",
-            "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.PreSharedKey.*.KeyPassphrase"
-        },
-        {
             "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.SSID",
             "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.PreSharedKey.*.KeyPassphrase"
         },
         {
-            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPAand11i",
-            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "WPAand11i"
+            "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.SSID",
+            "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.PreSharedKey.*.KeyPassphrase"
+        },
+        {
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.BeaconType": "WPAand11i",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.WPAEncryptionModes": "TKIPandAESEncryption"
         }
     ]
 }
