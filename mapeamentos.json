@@ -45,8 +45,10 @@
             "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.PreSharedKey.*.KeyPassphrase"
         },
         {
-            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.BeaconType": "WPAand11i",
-            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.WPAEncryptionModes": "TKIPandAESEncryption"
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPAand11i",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "WPAand11i",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.WPAEncryptionModes": "TKIPandAESEncryption",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.WPAEncryptionModes": "TKIPandAESEncryption"
         }
     ]
 }
