@@ -48,7 +48,9 @@
             "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPAand11i",
             "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.BeaconType": "WPAand11i",
             "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.WPAEncryptionModes": "TKIPandAESEncryption",
-            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.WPAEncryptionModes": "TKIPandAESEncryption"
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.WPAEncryptionModes": "TKIPandAESEncryption",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.IEEE11iEncryptionModes": "TKIPandAESEncryption",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.IEEE11iEncryptionModes": "TKIPandAESEncryption"
         }
     ]
 }
