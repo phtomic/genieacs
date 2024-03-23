@@ -52,5 +52,19 @@
             "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.IEEE11iEncryptionModes": "TKIPandAESEncryption",
             "InternetGatewayDevice.LANDevice.*.WLANConfiguration.5.IEEE11iEncryptionModes": "TKIPandAESEncryption"
         }
+    ],
+    "router": [
+        {
+            "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.SSID",
+            "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.PreSharedKey.*.KeyPassphrase"
+        },
+        {
+            "ssid": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.3.SSID",
+            "password": "InternetGatewayDevice.LANDevice.*.WLANConfiguration.3.PreSharedKey.*.KeyPassphrase"
+        },
+        {
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.1.BeaconType": "WPAand11i",
+            "InternetGatewayDevice.LANDevice.*.WLANConfiguration.3.BeaconType": "WPAand11i"
+        }
     ]
 }
