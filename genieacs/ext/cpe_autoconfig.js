@@ -3,7 +3,7 @@ let https = require( "https" );
 
 const options = (dados)=>{
     return {
-        hostname: 'seligatelecom.sgp.net.br',
+        hostname: '',
         port:443,
         path: '/api/ura/consultacliente',
         method: 'POST',
@@ -17,8 +17,8 @@ const options = (dados)=>{
 exports.pppoeLoginByMac = function pppoeLoginByMac( args, callback ) {    
     const dados = {
         mac_dhcp: args[0].trim(),
-        "app": "ura",
-        "token": "c3621230-1a8a-4ed7-acf7-beda32396fdc"
+        "app": "",
+        "token": ""
     }
     const opts = options(dados)
     if(opts.hostname && dados.token){
