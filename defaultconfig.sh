@@ -39,9 +39,7 @@ systemctl enable genieacs-nbi
 systemctl enable genieacs-cwmp
 systemctl enable genieacs-fs
 systemctl daemon-reload
-curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | \
-   gpg -o /usr/share/keyrings/mongodb-server-4.2.gpg \
-   --dearmor
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | gpg -o /usr/share/keyrings/mongodb-server-4.2.gpg --dearmor
 echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-4.2.gpg ] http://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
 dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
