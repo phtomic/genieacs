@@ -55,9 +55,9 @@ ponRX:
     4_critico:
       color: '"#cf1515"'
       filter: (VirtualParameters.PonRxPower < -35) AND (VirtualParameters.PonRxPower >
-        -200)
+        -50)
       label: "'CRÍTICO'"
     99999_semPON:
       color: '"#b649d1"'
-      filter: (VirtualParameters.PonRxPower = -200)
+      filter: (VirtualParameters.PonRxPower <= -50)
       label: "'SEM PON'"

@@ -1,3 +1,4 @@
+/* Atualiza Parametros virtuais */
 const IGNORE = declare("Tags.IGNORE", {value: 1});
 if (IGNORE.value !== undefined) {
     return;
