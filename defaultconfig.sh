@@ -8,30 +8,26 @@ nvm current
 npm -v
 source ~/.bashrc
 npm install -g genieacs@1.2.13
-useradd --system --no-create-home --user-group genieacs
 mkdir -p /opt/genieacs/ext
 mkdir /var/log/genieacs
 node -e "console.log(\"GENIEACS_UI_JWT_SECRET=\" + require('crypto').randomBytes(128).toString('hex'))" >> /opt/genieacs/genieacs.env
-chown genieacs:genieacs /opt/genieacs/ext
-chown genieacs:genieacs /var/log/genieacs
-chown genieacs:genieacs /opt/genieacs/genieacs.env
 chmod 600 /opt/genieacs/genieacs.env
 NODE_PATH=$(realpath $(dirname $(nvm which current))/../bin) 
 ln -s $NODE_PATH/node /usr/bin/node
 printf "[Unit]\nDescription=GenieACS CWMP\nAfter=network.target\n\n" > /etc/systemd/system/genieacs-cwmp.service
-printf "[Service]\nUser=genieacs\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-cwmp\n\n" >> /etc/systemd/system/genieacs-cwmp.service
+printf "[Service]\nUser=root\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-cwmp\n\n" >> /etc/systemd/system/genieacs-cwmp.service
 printf "[Install]\nWantedBy=default.target" >> /etc/systemd/system/genieacs-cwmp.service
 printf "[Unit]\nDescription=GenieACS NBI\nAfter=network.target\n\n" > /etc/systemd/system/genieacs-nbi.service
-printf "[Service]\nUser=genieacs\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-nbi\n\n" >> /etc/systemd/system/genieacs-nbi.service
+printf "[Service]\nUser=root\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-nbi\n\n" >> /etc/systemd/system/genieacs-nbi.service
 printf "[Install]\nWantedBy=default.target" >> /etc/systemd/system/genieacs-nbi.service
 printf "[Unit]\nDescription=GenieACS UI\nAfter=network.target\n\n" > /etc/systemd/system/genieacs-ui.service
-printf "[Service]\nUser=genieacs\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-ui\n\n" >> /etc/systemd/system/genieacs-ui.service
+printf "[Service]\nUser=root\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-ui\n\n" >> /etc/systemd/system/genieacs-ui.service
 printf "[Install]\nWantedBy=default.target" >> /etc/systemd/system/genieacs-ui.service
 printf "[Unit]\nDescription=GenieACS FS\nAfter=network.target\n\n" > /etc/systemd/system/genieacs-fs.service
-printf "[Service]\nUser=genieacs\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-fs\n\n" >> /etc/systemd/system/genieacs-fs.service
+printf "[Service]\nUser=root\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-fs\n\n" >> /etc/systemd/system/genieacs-fs.service
 printf "[Install]\nWantedBy=default.target" >> /etc/systemd/system/genieacs-fs.service
 printf "[Unit]\nDescription=GenieACS EXT\nAfter=network.target\n\n" > /etc/systemd/system/genieacs-ext.service
-printf "[Service]\nUser=genieacs\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-ext\n\n" >> /etc/systemd/system/genieacs-ext.service
+printf "[Service]\nUser=root\nEnvironmentFile=/opt/genieacs/genieacs.env\nExecStart=$NODE_PATH/genieacs-ext\n\n" >> /etc/systemd/system/genieacs-ext.service
 printf "[Install]\nWantedBy=default.target" >> /etc/systemd/system/genieacs-ext.service
 printf "/var/log/genieacs/*.log /var/log/genieacs/*.yaml {\n    daily\n    rotate 30\n    compress\n    delaycompress\n    dateext\n}" > /etc/logrotate.d/genieacs
 systemctl enable genieacs-ui
